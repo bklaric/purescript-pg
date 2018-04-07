@@ -1,0 +1,9 @@
+{
+  "name": "purescript-pg",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "pg": "^7.4.1"
+  }
+}

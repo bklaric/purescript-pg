@@ -1,0 +1,28 @@
+{
+  "name": "purescript-pg",
+  "description": "A wrapper for node-postgres based on idiomatic-node.",
+  "homepage": "https://github.com/bklaric/purescript-pg",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bklaric/purescript-pg.git"
+  },
+  "license": "AGPL-3.0",
+  "version": "0.1.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-prelude": "^3.1.1",
+    "purescript-console": "^3.0.0",
+    "purescript-foreign": "^4.0.1",
+    "purescript-options": "^3.1.0",
+    "purescript-effect": "^0.1.0",
+    "purescript-idiomatic-node-events": "^0.1.0"
+  },
+  "devDependencies": {
+    "purescript-psci-support": "^3.0.0"
+  }
+}
