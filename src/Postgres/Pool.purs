@@ -9,11 +9,11 @@ module Postgres.Pool
 
 import Prelude
 
-import Control.Monad.Effect (Effect)
-import Control.Monad.Effect.Exception (Error)
 import Data.Either (Either(..))
 import Data.Foreign (Foreign)
 import Data.Options (Options, options)
+import Effect (Effect)
+import Node.Errors (Error)
 import Node.Events.EventEmitter as EventEmitter
 import Postgres.Client (Client)
 import Postgres.Client.Config (ClientConfig)
@@ -24,21 +24,21 @@ import Unsafe.Coerce (unsafeCoerce)
 foreign import data Pool :: Type
 
 instance eventEmitterPool :: EventEmitter.EventEmitter Pool where
-    on = EventEmitter.defaultOn
-    once = EventEmitter.defaultOnce
-    prependListener = EventEmitter.defaultPrependListener
+    on                  = EventEmitter.defaultOn
+    once                = EventEmitter.defaultOnce
+    prependListener     = EventEmitter.defaultPrependListener
     prependOnceListener = EventEmitter.defaultPrependOnceListener
-    removeListener = EventEmitter.defaultRemoveListener
-    removeAllListeners = EventEmitter.defaultRemoveAllListeners
-    emit = EventEmitter.defaultEmit
-    listeners = EventEmitter.defaultListeners
-    listenerCount = EventEmitter.defaultListenerCount
-    getMaxListeners = EventEmitter.defaultGetMaxListeners
-    setMaxListeners = EventEmitter.defaultSetMaxListeners
-    eventNames = EventEmitter.defaultEventNames
+    removeListener      = EventEmitter.defaultRemoveListener
+    removeAllListeners  = EventEmitter.defaultRemoveAllListeners
+    emit                = EventEmitter.defaultEmit
+    listeners           = EventEmitter.defaultListeners
+    listenerCount       = EventEmitter.defaultListenerCount
+    getMaxListeners     = EventEmitter.defaultGetMaxListeners
+    setMaxListeners     = EventEmitter.defaultSetMaxListeners
+    eventNames          = EventEmitter.defaultEventNames
 
 instance querierClient :: Querier Pool where
-    query = defaultQuery
+    query           = defaultQuery
     queryWithConfig = defaultQueryWithConfig
 
 foreign import createImpl :: Foreign -> Effect Pool

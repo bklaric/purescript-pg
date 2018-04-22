@@ -2,13 +2,15 @@ module Test.Main where
 
 import Prelude
 
-import Control.Monad.Effect (Effect)
+import Data.Monoid (mempty)
 import Data.Options (Options, (:=))
-import Postgres.Pool (Query(..), create, query)
-import Postgres.Pool.Config (PoolConfig, database, host, password, port, user)
+import Effect (Effect)
+import Postgres.Client.Config (ClientConfig, database, host, password, port, user)
+import Postgres.Pool (create)
+import Postgres.Query (Query(..), query)
 
-poolConfig :: Options PoolConfig
-poolConfig =
+clientConfig :: Options ClientConfig
+clientConfig =
     user := "postgres"
     <> password := "postgres"
     <> host := "localhost"
@@ -19,6 +21,6 @@ foreign import log :: forall a. a -> Effect Unit
 
 main :: Effect Unit
 main = do
-    pool <- create poolConfig
+    pool <- create mempty clientConfig
     -- pool # query (Query "insert into test_table(some_text, foreign_column) values ('some text', 10)") [] log log
-    pool # query (Query "select * from test_table") [] log log
+    pool # query (Query "select * from test_table") [] log

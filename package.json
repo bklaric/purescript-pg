@@ -2,7 +2,7 @@
   "name": "purescript-pg",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "devDependencies": {
     "pg": "^7.4.1"
   }

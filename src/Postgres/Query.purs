@@ -13,11 +13,11 @@ module Postgres.Query
 
 import Prelude
 
-import Control.Monad.Effect (Effect)
-import Control.Monad.Effect.Exception (Error)
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
 import Data.Nullable (Nullable, toNullable)
+import Effect (Effect)
+import Node.Errors (Error)
 import Postgres.Result (Result)
 
 newtype Query = Query String

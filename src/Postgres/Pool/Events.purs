@@ -2,9 +2,9 @@ module Postgres.Pool.Events where
 
 import Prelude
 
-import Control.Monad.Effect (Effect)
-import Control.Monad.Effect.Exception (Error)
-import Node.Events (Event(..))
+import Effect (Effect)
+import Node.Errors (Error)
+import Node.Events.Event (Event(..))
 import Postgres.Client (Client)
 import Postgres.Pool (Pool)
 

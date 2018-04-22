@@ -2,12 +2,12 @@ module Postgres.Client (Client, create, connect, end) where
 
 import Prelude
 
-import Control.Monad.Effect (Effect)
-import Control.Monad.Effect.Exception (Error)
 import Data.Foreign (Foreign)
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 import Data.Options (Options, options)
+import Effect (Effect)
+import Node.Errors (Error)
 import Node.Events.EventEmitter as EventEmitter
 import Postgres.Client.Config (ClientConfig)
 import Postgres.Query (class Querier, defaultQuery, defaultQueryWithConfig)
@@ -15,21 +15,21 @@ import Postgres.Query (class Querier, defaultQuery, defaultQueryWithConfig)
 foreign import data Client :: Type
 
 instance eventEmitterPool :: EventEmitter.EventEmitter Client where
-    on = EventEmitter.defaultOn
-    once = EventEmitter.defaultOnce
-    prependListener = EventEmitter.defaultPrependListener
+    on                  = EventEmitter.defaultOn
+    once                = EventEmitter.defaultOnce
+    prependListener     = EventEmitter.defaultPrependListener
     prependOnceListener = EventEmitter.defaultPrependOnceListener
-    removeListener = EventEmitter.defaultRemoveListener
-    removeAllListeners = EventEmitter.defaultRemoveAllListeners
-    emit = EventEmitter.defaultEmit
-    listeners = EventEmitter.defaultListeners
-    listenerCount = EventEmitter.defaultListenerCount
-    getMaxListeners = EventEmitter.defaultGetMaxListeners
-    setMaxListeners = EventEmitter.defaultSetMaxListeners
-    eventNames = EventEmitter.defaultEventNames
+    removeListener      = EventEmitter.defaultRemoveListener
+    removeAllListeners  = EventEmitter.defaultRemoveAllListeners
+    emit                = EventEmitter.defaultEmit
+    listeners           = EventEmitter.defaultListeners
+    listenerCount       = EventEmitter.defaultListenerCount
+    getMaxListeners     = EventEmitter.defaultGetMaxListeners
+    setMaxListeners     = EventEmitter.defaultSetMaxListeners
+    eventNames          = EventEmitter.defaultEventNames
 
 instance querierClient :: Querier Client where
-    query = defaultQuery
+    query           = defaultQuery
     queryWithConfig = defaultQueryWithConfig
 
 foreign import createImpl :: Foreign -> Effect Client
@@ -43,7 +43,8 @@ foreign import connectImpl ::
 connect :: (Maybe Error -> Effect Unit) -> Client -> Effect Unit
 connect callback client = connectImpl (toMaybe >>> callback) client
 
-foreign import endImpl :: (Nullable Error -> Effect Unit) -> Client -> Effect Unit
+foreign import endImpl ::
+    (Nullable Error -> Effect Unit) -> Client -> Effect Unit
 
 end :: (Maybe Error -> Effect Unit) -> Client -> Effect Unit
 end callback client = endImpl (toMaybe >>> callback) client

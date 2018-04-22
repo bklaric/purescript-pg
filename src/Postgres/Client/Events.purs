@@ -2,9 +2,9 @@ module Postgres.Client.Events where
 
 import Prelude
 
-import Control.Monad.Effect (Effect)
 import Data.Nullable (Nullable)
-import Node.Events (Event(..))
+import Effect (Effect)
+import Node.Events.Event (Event(..))
 import Postgres.Client (Client)
 
 type Notification =
