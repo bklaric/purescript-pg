@@ -17,7 +17,7 @@ import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
 import Data.Nullable (Nullable, toNullable)
 import Effect (Effect)
-import Node.Errors (Error)
+import Postgres.Error (Error)
 import Postgres.Result (Result)
 
 newtype Query = Query String
