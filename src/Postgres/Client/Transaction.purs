@@ -18,16 +18,18 @@ rollback :: (Either Error Unit -> Effect Unit) -> Client -> Effect Unit
 rollback = execute_ (Query "rollback")
 
 withTransaction
-    :: forall result
-    .  ((Either Error result -> Effect Unit) -> Client -> Effect Unit)
-    -> (Either Error result -> Effect Unit)
+    :: forall error result
+    .  (Error -> error)
+    -> ((Either error result -> Effect Unit) -> Client -> Effect Unit)
+    -> (Either error result -> Effect Unit)
     -> Client
     -> Effect Unit
-withTransaction callback continue client =
+withTransaction constructError callback continue client =
     client # begin case _ of
-        Left error -> continue $ Left error
+        Left error -> continue $ Left $ constructError error
         Right _ -> client # callback case _ of
-            Left error' -> client # rollback \_ -> continue $ Left error'
+            Left error' ->
+                client # rollback \_ -> continue $ Left error'
             Right result -> client # commit case _ of
-                Left error'' -> continue $ Left error''
+                Left error'' -> continue $ Left $ constructError error''
                 Right _ -> continue $ Right result

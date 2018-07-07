@@ -10,16 +10,18 @@ import Postgres.Error (Error)
 import Postgres.Pool (Pool, connect)
 
 withTransaction
-    :: forall result
-    .  ((Either Error result -> Effect Unit) -> Client -> Effect Unit)
-    -> (Either Error result -> Effect Unit)
+    :: forall error result
+    .  (Error -> error)
+    -> ((Either error result -> Effect Unit) -> Client -> Effect Unit)
+    -> (Either error result -> Effect Unit)
     -> Pool
     -> Effect Unit
-withTransaction callback continue pool =
+withTransaction constructError callback continue pool =
     pool # connect case _ of
-        Left error -> continue $ Left error
+        Left error -> continue $ Left $ constructError error
         Right { client, releaseClient } ->
             Client.withTransaction
+                constructError
                 callback
                 (\result -> releaseClient *> continue result)
                 client
