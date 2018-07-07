@@ -9,6 +9,8 @@ module Postgres.Query
     , queryWithConfig
     , defaultQuery
     , defaultQueryWithConfig
+    , execute
+    , execute_
     ) where
 
 import Prelude
@@ -112,3 +114,24 @@ defaultQueryWithConfig queryConfig callback client =
         (Left >>> callback)
         (Right >>> callback)
         client
+
+execute
+    :: forall querier
+    .  Querier querier
+    => Query
+    -> Array QueryParameter
+    -> (Either Error Unit -> Effect Unit)
+    -> querier
+    -> Effect Unit
+execute query' parameters callback querier =
+    query query' parameters (void >>> callback) querier
+
+execute_
+    :: forall querier
+    .  Querier querier
+    => Query
+    -> (Either Error Unit -> Effect Unit)
+    -> querier
+    -> Effect Unit
+execute_ query' callback querier =
+    query_ query' (void >>> callback) querier
