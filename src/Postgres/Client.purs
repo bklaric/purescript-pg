@@ -2,7 +2,7 @@ module Postgres.Client (Client, create, connect, end) where
 
 import Prelude
 
-import Data.Foreign (Foreign)
+import Foreign (Foreign)
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable, toMaybe)
 import Data.Options (Options, options)

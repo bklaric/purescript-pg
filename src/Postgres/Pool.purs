@@ -10,7 +10,7 @@ module Postgres.Pool
 import Prelude
 
 import Data.Either (Either(..))
-import Data.Foreign (Foreign)
+import Foreign (Foreign)
 import Data.Options (Options, options)
 import Effect (Effect)
 import Node.Events.EventEmitter as EventEmitter
