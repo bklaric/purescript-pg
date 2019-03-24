@@ -2,7 +2,7 @@
   "name": "purescript-pg",
   "version": "1.0.0",
   "main": "",
-  "license": "AGPL-3.0",
+  "license": "MIT",
   "devDependencies": {
     "pg": "^7.4.1"
   }
