@@ -1,6 +1,10 @@
 module Postgres.Query
     ( Query(..)
     , QueryParameter(..)
+    , cons
+    , (:)
+    , finalCons
+    , (:|)
     , RowMode(..)
     , QueryConfig(..)
     , class Querier
@@ -15,16 +19,30 @@ module Postgres.Query
 
 import Prelude
 
+import Data.Array as Array
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
 import Data.Nullable (Nullable, toNullable)
 import Effect (Effect)
 import Postgres.Error (Error)
 import Postgres.Result (Result)
+import Unsafe.Coerce (unsafeCoerce)
 
 newtype Query = Query String
 
-newtype QueryParameter = QueryParameter String
+foreign import data QueryParameter :: Type
+
+cons :: forall parameter.
+    parameter -> Array QueryParameter -> Array QueryParameter
+cons parameter parameters = Array.cons (unsafeCoerce parameter) parameters
+
+infixr 6 cons as :
+
+finalCons :: forall leftParameter rightParameter.
+    leftParameter -> rightParameter -> Array QueryParameter
+finalCons left right = left : [unsafeCoerce right]
+
+infixr 6 finalCons as :|
 
 data RowMode = KeyValue | Array
 
