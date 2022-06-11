@@ -1,45 +1,43 @@
-"use strict";
-
-exports.rows = function (result) {
+export const rows = function (result) {
     return result.rows
 }
 
-exports.fields = function (result) {
+export const fields = function (result) {
     return result.fields
 }
 
-exports.rowCount = function (result) {
+export const rowCount = function (result) {
     return result.rowCount
 }
 
-exports.command = function (result) {
+export const command = function (result) {
     return result.command
 }
 
-exports.name = function (field) {
+export const name = function (field) {
     return field.name
 }
 
-exports.tableID = function (field) {
+export const tableID = function (field) {
     return field.tableID
 }
 
-exports.columnID = function (field) {
+export const columnID = function (field) {
     return field.columnID
 }
 
-exports.dataTypeID = function (field) {
+export const dataTypeID = function (field) {
     return field.dataTypeID
 }
 
-exports.dataTypeSize = function (field) {
+export const dataTypeSize = function (field) {
     return field.dataTypeSize
 }
 
-exports.dataTypeModifier = function (field) {
+export const dataTypeModifier = function (field) {
     return field.dataTypeModifier
 }
 
-exports.format = function (field) {
+export const format = function (field) {
     return field.format
 }

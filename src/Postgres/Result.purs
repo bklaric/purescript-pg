@@ -7,9 +7,9 @@ import Control.Monad.Except (runExcept)
 import Data.Array (head)
 import Data.Either (hush)
 import Data.Maybe (Maybe)
-import Foreign (Foreign, readArray, readString)
-import Foreign.Class (class Decode, decode)
+import Foreign (Foreign)
 import Foreign.Index (readProp)
+import Yoga.JSON (class ReadForeign, read_)
 
 foreign import data Result :: Type
 
@@ -37,27 +37,16 @@ foreign import dataTypeModifier :: Field -> Int
 
 foreign import format :: Field -> String
 
-decode' :: forall value. Decode value => Foreign -> Maybe value
-decode' = decode >>> runExcept >>> hush
-
-readString' :: Foreign -> Maybe String
-readString' = readString >>> runExcept >>> hush
-
-readArray' :: Foreign -> Maybe (Array Foreign)
-readArray' = readArray >>> runExcept >>> hush
-
 readProp' :: String -> Foreign -> Maybe Foreign
 readProp' property = readProp property >>> runExcept >>> hush
 
-readScalarArray :: forall scalar. Decode scalar => Result -> Maybe scalar
-readScalarArray result =
-    result # rows # head >>= readArray' >>= head >>= decode'
+readScalarArray :: forall scalar. ReadForeign scalar => Result -> Maybe scalar
+readScalarArray result = result # rows # head >>= read_ >>= head
 
-readScalarObject :: forall scalar. Decode scalar => Result -> Maybe scalar
+readScalarObject :: forall scalar. ReadForeign scalar => Result -> Maybe scalar
 readScalarObject result = do
     property <- result # fields # head <#> name
-    result # rows # head >>= readProp' property >>= decode'
+    result # rows # head >>= readProp' property >>= read_
 
-readScalar :: forall scalar. Decode scalar => Result -> Maybe scalar
-readScalar result =
-    readScalarArray result <|> readScalarObject result
+readScalar :: forall scalar. ReadForeign scalar => Result -> Maybe scalar
+readScalar result = readScalarArray result <|> readScalarObject result

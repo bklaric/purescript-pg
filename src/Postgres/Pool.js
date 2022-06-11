@@ -1,32 +1,30 @@
-"use strict";
-
 var Pool = require('pg').Pool
 
-exports.createImpl = function (poolConfig) {
+export const createImpl = function (poolConfig) {
     return function () {
         return new Pool(poolConfig)
     }
 }
 
-exports.totalCount = function (pool) {
+export const totalCount = function (pool) {
     return function () {
         return pool.totalCount
     }
 }
 
-exports.idleCount = function (pool) {
+export const idleCount = function (pool) {
     return function () {
         return pool.idleCount
     }
 }
 
-exports.waitingCount = function (pool) {
+export const waitingCount = function (pool) {
     return function () {
         return pool.waitingCount
     }
 }
 
-exports.connectImpl = function (errorCallback) {
+export const connectImpl = function (errorCallback) {
     return function (successCallback) {
         return function (pool) {
             return function () {
@@ -43,7 +41,7 @@ exports.connectImpl = function (errorCallback) {
     }
 }
 
-exports.end = function (callback) {
+export const end = function (callback) {
     return function (pool) {
         return function () {
             pool.end(callback)

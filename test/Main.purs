@@ -2,7 +2,6 @@ module Test.Main where
 
 import Prelude
 
-import Data.Monoid (mempty)
 import Data.Options (Options, (:=))
 import Effect (Effect)
 import Postgres.Client.Config (ClientConfig, database, host, password, port, user)

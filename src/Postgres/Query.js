@@ -1,6 +1,4 @@
-"use strict";
-
-exports.queryImpl = function (queryString) {
+export const queryImpl = function (queryString) {
     return function (queryParameters) {
         return function (errorCallback) {
             return function (successCallback) {
@@ -25,7 +23,7 @@ exports.queryImpl = function (queryString) {
     }
 }
 
-exports.queryWithConfigImpl = function (queryConfig) {
+export const queryWithConfigImpl = function (queryConfig) {
     return function (errorCallback) {
         return function (successCallback) {
             return function (querier) {

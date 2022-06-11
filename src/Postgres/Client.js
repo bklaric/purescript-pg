@@ -1,14 +1,12 @@
-"use strict";
+import * as pg from "pg"
 
-var pg = require("pg")
-
-exports.createImpl = function (clientConfig) {
+export const createImpl = function (clientConfig) {
     return function () {
         return new pg.Client(clientConfig)
     }
 }
 
-exports.connectImpl = function (callback) {
+export const connectImpl = function (callback) {
     return function (client) {
         return function () {
             client.connect(function (error) {
@@ -18,7 +16,7 @@ exports.connectImpl = function (callback) {
     }
 }
 
-exports.endImpl = function (callback) {
+export const endImpl = function (callback) {
     return function (client) {
         return function () {
             client.end(function (error) {
