@@ -1,9 +1,0 @@
-{
-  "name": "purescript-pg",
-  "version": "1.0.0",
-  "main": "",
-  "license": "MIT",
-  "devDependencies": {
-    "pg": "^7.4.1"
-  }
-}
