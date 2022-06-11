@@ -23,7 +23,7 @@ import Unsafe.Coerce (unsafeCoerce)
 
 foreign import data Pool :: Type
 
-instance eventEmitterPool :: EventEmitter.EventEmitter Pool where
+instance EventEmitter.EventEmitter Pool where
     on                  = EventEmitter.defaultOn
     once                = EventEmitter.defaultOnce
     prependListener     = EventEmitter.defaultPrependListener
@@ -37,7 +37,7 @@ instance eventEmitterPool :: EventEmitter.EventEmitter Pool where
     setMaxListeners     = EventEmitter.defaultSetMaxListeners
     eventNames          = EventEmitter.defaultEventNames
 
-instance querierClient :: Querier Pool where
+instance Querier Pool where
     query           = defaultQuery
     queryWithConfig = defaultQueryWithConfig
 

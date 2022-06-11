@@ -30,6 +30,8 @@ import Unsafe.Coerce (unsafeCoerce)
 
 newtype Query = Query String
 
+derive newtype instance Semigroup Query
+
 foreign import data QueryParameter :: Type
 
 cons :: forall parameter.

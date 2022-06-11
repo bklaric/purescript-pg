@@ -14,7 +14,7 @@ import Postgres.Query (class Querier, defaultQuery, defaultQueryWithConfig)
 
 foreign import data Client :: Type
 
-instance eventEmitterPool :: EventEmitter.EventEmitter Client where
+instance EventEmitter.EventEmitter Client where
     on                  = EventEmitter.defaultOn
     once                = EventEmitter.defaultOnce
     prependListener     = EventEmitter.defaultPrependListener
@@ -28,7 +28,7 @@ instance eventEmitterPool :: EventEmitter.EventEmitter Client where
     setMaxListeners     = EventEmitter.defaultSetMaxListeners
     eventNames          = EventEmitter.defaultEventNames
 
-instance querierClient :: Querier Client where
+instance Querier Client where
     query           = defaultQuery
     queryWithConfig = defaultQueryWithConfig
 

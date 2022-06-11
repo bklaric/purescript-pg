@@ -18,11 +18,11 @@ import Node.Errors.Class (class NodeError, defaultCode, defaultStack)
 
 foreign import data Error :: Type
 
-instance errorError :: Error Error where
+instance Error Error where
     name = defaultName
     message = defaultMessage
 
-instance nodeErrorError :: NodeError Error where
+instance NodeError Error where
     code = defaultCode
     stack = defaultStack
 
